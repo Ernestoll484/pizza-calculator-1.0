@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="pizza.css">
+	<title>opdr.. pizza?</title>
+</head> 
+<body>
+
+	<p>Choose your pizzas</p>
+	<button id='btnSmall' onclick='pizzaSmall()'>Small</button>
+	<button id='btnMedium' onclick='pizzaMedium()'>Medium</button>
+	<button id='btnLarge' onclick='pizzaLarge()'>Large</button>
+	<br>
+	<content id='toppings' hidden='true'>
+		<content id='sizeAndPrice'></content>
+		<br>
+		<p>Do you want to add additional toppings?</p>
+		<button id='btnExtraCheese' onclick='addExtraCheese()'>Add extra cheese</button><p>+1 dollar to total</p><br>
+		<button id='btnExtraSauce' onclick='addExtraSauce()'>Add extra tomato sauce</button><p>+1 dollar to total</p><br>
+		<button id='btnPepperoni' onclick='addPepperoni()'>Add pepperoni</button><p>+1.50 dollar to total</p><br>
+		
+	</content>
+	<br> 
+	<button onclick='checkout()'>Go to checkout</button>
+	<br>
+	<content id='checkoutInfo'></content>
+
+	<script>
+		
+		
+
+		
+		var amtSmall = 0;
+		var amtMedium = 0;
+		var amtLarge = 0;
+		var amtTotal = 0;
+		var totalSmall = 0;
+		var totalMedium = 0;
+		var totalLarge = 0;
+		var totalTotal = 0;
+		var checkoutString = '';
+		var size = ''; 
+
+		
+		function selectTopping(){
+			document.getElementById('toppings').hidden = false;
+			if (size == 'small'){
+				document.getElementById('sizeAndPrice').innerHTML = ('You selected ' + amtSmall + ' ' + size + ' pizzas.');
+			}
+			if (size == 'medium'){
+				document.getElementById('sizeAndPrice').innerHTML = ('You selected ' + amtMedium + ' ' + size + ' pizzas.');
+			}
+			if (size == 'large'){
+				document.getElementById('sizeAndPrice').innerHTML = ('You selected ' + amtLarge + ' ' + size + ' pizzas.');
+			}
+			checkoutString += '<p>Extra toppings:</p>'
+			amtTotal += (amtSmall + amtMedium + amtLarge);
+		}
+
+		
+		function addExtraCheese(){
+			totalTotal += (1.00 * amtTotal);
+			checkoutString += ('Extra cheese +$1.00 * ' + amtTotal + ' pizzas<br>');
+		}
+		function addExtraSauce(){
+			totalTotal += (1.00 * amtTotal);
+			checkoutString += ('Extra sauce +$1.00 * ' + amtTotal + ' pizzas<br>');
+		}
+		function addPepperoni(){
+			totalTotal += (1.50 * amtTotal);
+			checkoutString += ('Added pepperoni +$1.50 * ' + amtTotal + ' pizzas<br>');
+		}
+		
+
+		
+		function pizzaSmall(){
+			amtSmall = parseInt(prompt('Select the amount of small pizzas you want! Each pizza is $5'));
+			totalSmall = (amtSmall * 5.00);
+			checkoutString += ('The amount of small pizzas is ' + amtSmall + ' with a base total of $' + totalSmall + '<br>');
+			document.getElementById('btnMedium').disabled = true;
+			document.getElementById('btnLarge').disabled = true;
+			size = 'small';
+			selectTopping();
+
+		}
+		function pizzaMedium(){
+			amtMedium = parseInt(prompt('Select the amount of medium pizzas you want! Each pizza is $7.99'));
+			totalMedium = (amtMedium * 7.99);
+			checkoutString += ('The amount of medium pizzas is ' + amtMedium + ' with a base total of $' + totalMedium + '<br>');
+			document.getElementById('btnSmall').disabled = true;
+			document.getElementById('btnLarge').disabled = true;
+			size = 'medium';
+			selectTopping();
+
+		}
+		function pizzaLarge(){
+			amtLarge = parseInt(prompt('Select the amount of large pizzas you want! Each pizza is $9.99'));
+			totalLarge = (amtLarge * 9.99);
+			checkoutString += ('The amount of large pizzas is ' + amtLarge + ' with a base total of $' + totalLarge + '<br>');
+			document.getElementById('btnSmall').disabled = true;
+			document.getElementById('btnMedium').disabled = true;
+			size = 'large';
+			selectTopping();
+
+		}
+
+		
+		function checkout(){
+			document.write(checkoutString);
+			totalTotal += (totalSmall + totalMedium + totalLarge);
+			document.write("<br>That'll be $" + totalTotal + ", please. :D");
+			
+			
+		}
+
+	</script>
+</body>
+</html>
